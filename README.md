@@ -10,13 +10,14 @@ This project analyzes the traffic characteristics of different applications, suc
 
 By studying these properties, we can gain insights into how different applications behave in the network, how they affect performance, and how encrypted traffic can still reveal user activity patterns.
 
+
 ## **Project Goals**
 - Capture and analyze network traffic from different applications.
 - Extract TCP,IP, TLS header fields and Packet Sizes to understand traffic behavior.
 - Generate **Plots** comparing the traffic patterns of different applications.
 - Investigate the feasibility of **identifying applications from encrypted traffic.**
 
-## **Project Structure**
+
 ```
 📂 Project Root
  ├── 📂 src/            # Source code for parsing and analyzing `.pcap` files
@@ -24,6 +25,8 @@ By studying these properties, we can gain insights into how different applicatio
  ├── 📄 report.pdf      # Final project report
  ├── 📄 README.md       # This file
 ```
+
+## ** Report and Analysis** 
 
 ## **Installation and Setup**
 
