@@ -1,8 +1,5 @@
 import os
 import pyshark
-import pandas as pd
-import matplotlib
-matplotlib.use("TkAgg")  # Use a backend that supports interactive display
 import matplotlib.pyplot as plt
 import numpy as np
 

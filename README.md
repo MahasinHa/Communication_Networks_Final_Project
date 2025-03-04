@@ -32,8 +32,12 @@ Ensure Python is installed, then run:
 ```bash
 pip install pyshark pandas matplotlib
 ```
-
-### **3. Running the Code**
+### **3. If the code didn't work**
+If the code gave an error and not showing the plots, please put this command in the terminal:
+```bash
+sudo apt install python3-tk -y
+```
+### **4. Running the Code**
 To process the `.pcap` files and generate plots, execute:
 ```bash
 python src/Packet_Size.py
@@ -44,7 +48,7 @@ python src/TLS_Header_Fields.py
 or
 python src/TCP_Header_Fields.py
 ```
-You should run each one indivisually based on what plots you want to see.
+You should run each one individually based on what plots you want to see.
 
 ### **4. Viewing the Results**
 - The generated figures and plots will be saved in the `/res/` directory.

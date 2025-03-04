@@ -1,8 +1,6 @@
 import os
 import pyshark
-import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 from collections import Counter
 
 # Get the script's directory dynamically
