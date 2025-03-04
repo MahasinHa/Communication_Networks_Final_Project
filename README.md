@@ -87,7 +87,7 @@ You should run each one individually based on what plots you want to see.
 - **Mahasin Hamood** (212933907)
 - **Omri Bessan** (206607905)
 - **Leon Pasternak** (314789348)
-- **Adham Hamoudy** (214225187)
+- **Adham Hamoudy** (214225187) 
 
 ## **Acknowledgments**
 - Special thanks to Amit Dvir for guidance.
