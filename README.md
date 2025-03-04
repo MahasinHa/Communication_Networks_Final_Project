@@ -1,4 +1,4 @@
-# **Communication System Final Project**
+# **Communication Networks Final Project**
 
 ## **Overview**
 This project analyzes the traffic characteristics of different applications, such as web browsing, video streaming, audio streaming, and video conferencing. We focus on extracting and comparing traffic properties from recorded `.pcap` files using Wireshark and Python. The project investigates key traffic parameters including:
