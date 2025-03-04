@@ -52,7 +52,7 @@ You should run each one individually based on what plots you want to see.
 
 ### **4. Viewing the Results**
 - The generated figures and plots will be saved in the `/res/` directory.
-- The `.pcap` files are **not included** in the repository due to size constraints. Instead, a cloud storage link is provided in `report.pdf`.
+- The `.pcap` files are ** included** in the repository.
 
 ## **Traffic Capture Methodology**
 1. Used **Wireshark** to record network traffic while using different applications.
