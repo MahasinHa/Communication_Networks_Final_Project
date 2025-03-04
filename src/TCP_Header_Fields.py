@@ -17,7 +17,7 @@ os.makedirs(pcap_dir, exist_ok=True)
 
 # Define application-specific .pcapng files
 pcap_files = {
-    "Web Browsing (Chrome/Edge)": os.path.join(pcap_dir, "MicrosoftEdge_Decrypted_Filtered.pcapng"),
+    "Web Browsing (Edge)": os.path.join(pcap_dir, "MicrosoftEdge_Decrypted_Filtered.pcapng"),
     "Web Browsing (Firefox)": os.path.join(pcap_dir, "FireFox_Decrypted_Filtered.pcapng"),
     "Video Streaming (YouTube)": os.path.join(pcap_dir, "Youtube_Decrypted_Filtered.pcapng"),
     "Audio Streaming (Spotify)": os.path.join(pcap_dir, "Spotify_Decrypted_Filtered.pcapng"),
