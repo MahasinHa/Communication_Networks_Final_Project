@@ -15,6 +15,18 @@ if not os.path.exists(RECORDINGS_DIR):
 
 # Function to extract packet sizes and timestamps from a .pcap or .pcapng file
 def extract_packet_data(pcap_file, ssl_keylog):
+    """
+    Extracts packet sizes and timestamps from a given .pcapng file.
+
+    Args:
+        pcap_file (str): Path to the .pcapng file.
+        ssl_keylog (str): Path to the SSL key log file for decryption.
+
+    Returns:
+        tuple: Two lists:
+            - timestamps (list of float): List of packet timestamps.
+            - packet_sizes (list of int): Corresponding packet sizes.
+    """
     cap = pyshark.FileCapture(
         pcap_file,
         use_json=True,
@@ -38,6 +50,19 @@ def extract_packet_data(pcap_file, ssl_keylog):
 
 # Function to group packets into 200ms intervals
 def group_packets_by_interval(timestamps, packet_sizes, interval=0.2):
+    """
+    Groups packets into time intervals and sums their sizes.
+
+    Args:
+        timestamps (list of float): List of packet timestamps.
+        packet_sizes (list of int): List of packet sizes.
+        interval (float, optional): Time interval in seconds (default is 0.2s).
+
+    Returns:
+        tuple: Two lists:
+            - bins[:-1] (list of float): Start times of each interval.
+            - binned_sizes (list of float): Total packet sizes in each interval.
+    """
     start_time = min(timestamps)
     relative_times = [t - start_time for t in timestamps]
 
@@ -54,6 +79,14 @@ def group_packets_by_interval(timestamps, packet_sizes, interval=0.2):
 
 # Function to plot packet sizes over time for a single application
 def plot_packet_size_over_time_single(timestamps, packet_sizes, app_name):
+    """
+    Plots packet sizes over time for a single application.
+
+    Args:
+        timestamps (list of float): Packet timestamps.
+        packet_sizes (list of int): Corresponding packet sizes.
+        app_name (str): Name of the application.
+    """
     times, sizes = group_packets_by_interval(timestamps, packet_sizes, interval=0.2)
 
     plt.figure(figsize=(10, 6))
@@ -70,8 +103,15 @@ def plot_packet_size_over_time_single(timestamps, packet_sizes, app_name):
     print(f"Displayed plot for: {app_name}")
 
 
-# Function to compare packet sizes over time for multiple applications
 def compare_packet_sizes_over_time(pcap_files, app_names, ssl_keylog):
+    """
+    Compares packet sizes over time for multiple applications.
+
+    Args:
+        pcap_files (list of str): List of paths to .pcapng files.
+        app_names (list of str): List of application names.
+        ssl_keylog (str): Path to the SSL key log file for decryption.
+    """
     plt.figure(figsize=(12, 6))
 
     for pcap_file, app_name in zip(pcap_files, app_names):
@@ -90,7 +130,6 @@ def compare_packet_sizes_over_time(pcap_files, app_names, ssl_keylog):
     print("Displayed comparison plot for all applications")
 
 
-# Example usage
 if __name__ == "__main__":
     # Check if the SSL keylog file exists
     if not os.path.exists(SSL_KEYLOG_FILE):
