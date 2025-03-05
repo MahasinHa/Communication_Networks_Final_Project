@@ -21,7 +21,12 @@ APPLICATIONS = {
 }
 
 def get_existing_pcaps():
-    """Return a dictionary of applications with available .pcapng files inside 'Recordings/'."""
+    """
+    Returns a dictionary of applications with available `.pcapng` files inside the 'Recordings/' directory.
+
+    Returns:
+    - dict: A dictionary mapping application names to valid `.pcapng` file paths.
+    """
     return {
         app: os.path.join(RECORDINGS_FOLDER, filename)
         for app, filename in APPLICATIONS.items()
@@ -29,7 +34,15 @@ def get_existing_pcaps():
     }
 
 def extract_tls_traffic(pcap_file):
-    """Extract total TLS traffic (in bytes) from a given pcap file."""
+    """
+    Extracts total TLS traffic (in bytes) from a given `.pcapng` file using PyShark.
+
+    Parameters:
+    - pcap_file (str): Path to the `.pcapng` file to be analyzed.
+
+    Returns:
+    - int: Total traffic in bytes for the specified application.
+    """
     try:
         cap = pyshark.FileCapture(
             pcap_file,
@@ -48,11 +61,23 @@ def extract_tls_traffic(pcap_file):
         return total_traffic
 
     except Exception as e:
-        print(f"❌ Error processing {pcap_file}: {e}")
+        print(f"Error processing {pcap_file}: {e}")
         return 0  # Return zero on failure
 
 if __name__ == "__main__":
-    # Extract traffic data for each available pcap file
+    """
+    Extracts and visualizes total TLS traffic per application based on available `.pcapng` files.
+
+    Steps:
+    1. Checks for available `.pcapng` files in the `Recordings` folder.
+    2. Extracts TLS traffic data for each valid application.
+    3. Filters out applications with zero traffic.
+    4. Converts traffic from bytes to megabytes (MB).
+    5. Generates a bar chart comparing total TLS traffic per application.
+
+    Returns:
+    - None (Displays visualization of extracted TLS traffic data).
+    """
     app_traffic_data = {
         app: extract_tls_traffic(pcap)
         for app, pcap in get_existing_pcaps().items()

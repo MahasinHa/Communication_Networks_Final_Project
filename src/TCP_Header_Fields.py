@@ -26,6 +26,28 @@ pcap_files = {
 
 # Function to extract TCP header fields
 def extract_tcp_headers(file_path, label):
+    """
+    Extracts TCP header fields from a given `.pcapng` file using PyShark.
+    It collects information such as timestamps, IP addresses, ports, sequence numbers, acknowledgment numbers, window sizes, TCP flags, and payload sizes.
+
+    Parameters:
+    - file_path (str): Path to the `.pcapng` file to be analyzed.
+    - label (str): Application label associated with the traffic.
+
+    Returns:
+    - pd.DataFrame: A DataFrame containing extracted TCP header fields with the following columns:
+        - 'Timestamp'
+        - 'Source IP'
+        - 'Destination IP'
+        - 'Source Port'
+        - 'Destination Port'
+        - 'Sequence Number'
+        - 'Ack Number'
+        - 'TCP Flags'
+        - 'Window Size'
+        - 'Payload Size'
+        - 'Application'
+    """
     print(f"Processing TCP packets from {label} ({file_path})...")
 
     # Check if the file exists before processing
@@ -68,7 +90,7 @@ df = pd.concat(df_list, ignore_index=True)
 df.to_csv(csv_path, index=False)
 print(f"TCP headers extracted and saved to {csv_path}")
 
-# ✅ Check if the DataFrame is empty before processing further
+# Check if the DataFrame is empty before processing further
 if df.empty:
     print("No packets were extracted. Please check if the .pcapng files exist in the 'Recordings' folder.")
     exit()
@@ -78,6 +100,20 @@ df["Timestamp"] = pd.to_datetime(df["Timestamp"], unit="s")
 
 # Function to generate **separate**, **easy-to-read** graphs for each application
 def plot_application_traffic(df):
+    """
+    Generates and displays separate graphs for each application from the given DataFrame.
+
+    The function produces:
+    1. A time series plot of TCP window size.
+    2. A bar chart showing TCP flags distribution.
+    3. A histogram of TCP payload size distribution.
+
+    Parameters:
+    - df (pd.DataFrame): A DataFrame containing TCP header fields and application labels.
+
+    Returns:
+    - None (Displays separate plots for each application).
+    """
     for app in df["Application"].unique():
         subset = df[df["Application"] == app]
 

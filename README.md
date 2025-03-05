@@ -47,7 +47,17 @@ If the code gave an error and not showing the plots, please put this command in 
 ```bash
 sudo apt install python3-tk -y
 ```
-### **4. Running the Code**
+### **4. Instructions for the pcaps**
+- The Pcaps have to be in a Recording folder because we wrote the code to look for this folder.
+
+The names of the Pcaps have to be like this:
+- MicrosoftEdge_Decrypted_Filtered.pcapng
+- FireFox_Decrypted_Filtered.pcapng
+- Youtube_Decrypted_Filtered.pcapng
+- Spotify_Decrypted_Filtered.pcapng
+- Zoom_Decrypted_Filtered.pcapng
+
+### **5. Running the Code**
 To process the `.pcap` files and generate plots, execute:
 ```bash
 python src/Packet_Size.py
@@ -60,7 +70,7 @@ python src/TCP_Header_Fields.py
 ```
 You should run each one individually based on what plots you want to see.
 
-### **4. Viewing the Results**
+### **6. Viewing the Results**
 - The generated figures and plots will be saved in the `/res/` directory.
 - The `.pcap` files are **included** in the repository.
 

@@ -14,6 +14,22 @@ os.makedirs(PCAP_DIR, exist_ok=True)
 
 
 def extract_packet_data(pcap_file, ssl_keylog):
+    """
+    Extracts network packet data from a given `.pcapng` file using PyShark.
+    It analyzes IP source-destination pairs, TTL values, protocol types, checksum errors, and QoS values.
+
+    Parameters:
+    - pcap_file (str): Path to the `.pcapng` file to be analyzed.
+    - ssl_keylog (str): Path to the SSL key log file for decryption.
+
+    Returns:
+    - data (dict): A dictionary containing:
+        - 'ip_pairs' (Counter): Frequency of source-destination IP pairs.
+        - 'ttl_values' (list): Collected Time-To-Live (TTL) values.
+        - 'protocols' (list): List of detected protocols.
+        - 'checksum_errors' (int): Count of packets with checksum errors.
+        - 'qos_values' (list): List of Differentiated Services Code Point (DSCP) values (QoS).
+    """
     cap = pyshark.FileCapture(
         pcap_file,
         use_json=True,
@@ -55,6 +71,16 @@ def extract_packet_data(pcap_file, ssl_keylog):
 
 
 def plot_ttl_distribution(ttl_values, app_name):
+    """
+    Generates and displays a histogram showing the distribution of TTL values for a specific application.
+
+    Parameters:
+    - ttl_values (list): A list of TTL values extracted from packets.
+    - app_name (str): The name of the application associated with the dataset.
+
+    Returns:
+    - None (Displays a histogram plot of TTL values).
+    """
     if not ttl_values:
         print(f"No TTL data for {app_name}.")
         return
@@ -85,6 +111,17 @@ def plot_protocol_distribution(protocols, app_name):
 
 
 def plot_checksum_errors(checksum_errors, total_packets, app_name):
+    """
+    Generates and displays a pie chart representing the proportion of packets with checksum errors versus valid packets.
+
+    Parameters:
+    - checksum_errors (int): The number of packets with checksum errors.
+    - total_packets (int): Total number of packets processed.
+    - app_name (str): The name of the application associated with the dataset.
+
+    Returns:
+    - None (Displays a pie chart of checksum errors).
+    """
     if total_packets == 0:
         print(f"No packets processed for {app_name}, skipping checksum errors plot.")
         return
@@ -99,6 +136,16 @@ def plot_checksum_errors(checksum_errors, total_packets, app_name):
 
 
 def plot_qos_distribution(qos_values, app_name):
+    """
+    Generates and displays a bar chart showing the distribution of Quality of Service (QoS) values (DSCP values) in the captured traffic.
+
+    Parameters:
+    - qos_values (list): List of QoS (DSCP) values extracted from packets.
+    - app_name (str): The name of the application associated with the dataset.
+
+    Returns:
+    - None (Displays a bar chart of QoS values).
+    """
     if not qos_values:
         print(f"No QoS data for {app_name}.")
         return
@@ -116,6 +163,16 @@ def plot_qos_distribution(qos_values, app_name):
 
 
 def plot_ip_pair_frequency(ip_pairs, app_name):
+    """
+    Generates and displays a bar chart of the top 10 most frequent source-destination IP address pairs in the captured network traffic.
+
+    Parameters:
+    - ip_pairs (Counter): A Counter object mapping IP pairs to their frequency.
+    - app_name (str): The name of the application associated with the dataset.
+
+    Returns:
+    - None (Displays a bar chart showing the most frequent IP pairs).
+    """
     if not ip_pairs:
         print(f"No IP pair data for {app_name}.")
         return
@@ -134,6 +191,18 @@ def plot_ip_pair_frequency(ip_pairs, app_name):
 
 
 if __name__ == "__main__":
+    """
+    Processes multiple `.pcapng` files corresponding to different applications, extracting relevant network data and generating visualizations.
+
+    Steps:
+    1. Defines paths to `.pcapng` files for Zoom, YouTube, Spotify, Firefox, and Edge.
+    2. Iterates over each `.pcapng` file, extracting network data.
+    3. Calls respective plotting functions to visualize TTL distribution, protocol distribution, checksum errors, QoS distribution, and IP pair frequency.
+    4. Skips analysis for files that do not exist in the `Recordings` folder.
+
+    Returns:
+    - None (Executes analysis and displays visualizations).
+    """
     ssl_keylog = os.path.join(BASE_DIR, "sslkeylog.txt")
     pcap_files = [
         os.path.join(PCAP_DIR, "Zoom_Decrypted_Filtered.pcapng"),

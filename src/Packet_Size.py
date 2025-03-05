@@ -13,7 +13,6 @@ if not os.path.exists(RECORDINGS_DIR):
     print(f"Error: 'Recordings' folder not found at {RECORDINGS_DIR}.")
     exit()
 
-# Function to extract packet sizes and timestamps from a .pcap or .pcapng file
 def extract_packet_data(pcap_file, ssl_keylog):
     """
     Extracts packet sizes and timestamps from a given .pcapng file.
@@ -47,8 +46,6 @@ def extract_packet_data(pcap_file, ssl_keylog):
 
     return timestamps, packet_sizes
 
-
-# Function to group packets into 200ms intervals
 def group_packets_by_interval(timestamps, packet_sizes, interval=0.2):
     """
     Groups packets into time intervals and sums their sizes.
@@ -101,7 +98,6 @@ def plot_packet_size_over_time_single(timestamps, packet_sizes, app_name):
     plt.show()  # Only show the plot (no saving)
 
     print(f"Displayed plot for: {app_name}")
-
 
 def compare_packet_sizes_over_time(pcap_files, app_names, ssl_keylog):
     """
